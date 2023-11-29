@@ -1,0 +1,24 @@
+global
+    daemon
+    maxconn 256
+
+defaults
+    mode http
+    timeout connect 5000ms
+    timeout client 50000ms
+    timeout server 50000ms
+
+frontend http-in
+    bind *:80
+    mode http
+    default_backend web-backend
+
+frontend https-in
+    bind *:443 ssl crt /etc/letsencrypt/live/www.jsumbo.tech/fullchain.pem
+    mode http
+    default_backend web-backend
+
+backend web-backend
+    balance roundrobin
+    server web-01 34.228.10.0:80 check
+    server web-02 3.80.130.8:80 check
