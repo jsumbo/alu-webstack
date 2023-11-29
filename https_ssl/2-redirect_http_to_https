@@ -9,10 +9,16 @@ defaults
     timeout server 50000ms
 
 frontend http-in
-    bind *:80 
+    bind *:80
     bind *:443 ssl crt /etc/letsencrypt/live/www.jsumbo.tech/fullchain.pem
     mode http
     default_backend web-backend
+
+frontend http_frontend
+    bind *:80
+    mode http
+    option httplog
+    redirect scheme https code 301 if !{ ssl_fc }
 
 frontend https-frontend
     bind *:443 ssl crt /etc/letsencrypt/live/www.jsumbo.tech/fullchain.pem
