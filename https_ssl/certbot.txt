@@ -1,0 +1,5 @@
+sudo certbot certonly --standalone -d www.jsumbo.tech
+sudo systemctl stop nginx 
+sudo service haproxy stop 
+
+/etc/systemd/system/timers.target.wants/certbot.timer → /lib/systemd/system/certbot.timer. 
